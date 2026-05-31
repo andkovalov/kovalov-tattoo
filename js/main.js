@@ -250,7 +250,18 @@
 
   /* ── Cookie consent (GDPR) ───────────────────────────── */
   (function () {
-    var CONSENT_KEY = 'kt_cookie_consent_v1';
+    var CONSENT_KEY = 'cookie_consent';
+
+    function loadGTM() {
+      if (window._gtmLoaded) return;
+      window._gtmLoaded = true;
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-MLJ56LH2');
+    }
+
     var i18n = {
       RU: {
         title: 'Cookies',
@@ -311,9 +322,10 @@
     function openBanner() { render(currentLang()); cc.hidden = false; lock(); }
     function closeBanner() { cc.hidden = true; unlock(); }
     function save(consent) {
-      var data = { necessary: true, analytics: consent, marketing: consent, ts: Date.now(), v: 1 };
-      try { localStorage.setItem(CONSENT_KEY, JSON.stringify(data)); } catch (e) {}
-      try { window.dispatchEvent(new CustomEvent('cookieconsent', { detail: data })); } catch (e) {}
+      var val = consent ? 'accepted' : 'rejected';
+      try { localStorage.setItem(CONSENT_KEY, val); } catch (e) {}
+      if (consent) loadGTM();
+      try { window.dispatchEvent(new CustomEvent('cookieconsent', { detail: { consent: val } })); } catch (e) {}
       closeBanner();
     }
 
@@ -328,7 +340,7 @@
     }
 
     var stored = null;
-    try { stored = JSON.parse(localStorage.getItem(CONSENT_KEY)); } catch (e) {}
+    try { stored = localStorage.getItem(CONSENT_KEY); } catch (e) {}
     render(currentLang());
     if (!stored) openBanner(); else closeBanner();
   })();
