@@ -123,7 +123,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <section id="hero" aria-label="Hero">
     <div class="hero-bg" aria-hidden="true">
-      <img src="/images/hero.jpg" alt="Andrey Kovalov — Tattoo Artist, Prague" fetchpriority="high">
+      <picture>
+        <source type="image/webp" media="(max-width: 768px)" srcset="/images/hero-mobile.webp">
+        <source type="image/webp" srcset="/images/hero.webp">
+        <img src="/images/hero.jpg" alt="Andrey Kovalov — Tattoo Artist, Prague" loading="eager" fetchpriority="high">
+      </picture>
     </div>
     <div class="hero-main">
       <div class="hero-eyebrow">Andrey Kovalov · Fine line &amp; black &amp; grey · Prague</div>
@@ -210,13 +214,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
 
       <div class="portfolio-grid" id="portfolio-grid">
-        <div class="portfolio-cell" data-style="blackgrey"><img class="portfolio-img" src="/images/work1.jpg" alt="Fallen angel — black &amp; grey" loading="lazy"></div>
-        <div class="portfolio-cell" data-style="blackgrey"><img class="portfolio-img" src="/images/work2.jpg" alt="Archangel Michael — black &amp; grey" loading="lazy"></div>
-        <div class="portfolio-cell" data-style="fineline"><img class="portfolio-img" src="/images/work3.jpg" alt="Swallows and geometry — fineline" loading="lazy"></div>
-        <div class="portfolio-cell" data-style="microrealism"><img class="portfolio-img" src="/images/work4.jpg" alt="Ballerina with katana — microrealism" loading="lazy"></div>
-        <div class="portfolio-cell" data-style="symbolic"><img class="portfolio-img" src="/images/work5.jpg" alt="Embrace and serpent — symbolic" loading="lazy"></div>
-        <div class="portfolio-cell" data-style="grafika"><img class="portfolio-img" src="/images/work6.jpg" alt="Marionette and hand — graphic" loading="lazy"></div>
-        <div class="portfolio-cell" data-style="blackgrey"><img class="portfolio-img" src="/images/work7.jpg" alt="Native in geometry — black &amp; grey" loading="lazy"></div>
+        <div class="portfolio-cell" data-style="blackgrey"><img class="portfolio-img" src="/images/work1.webp" alt="Fallen angel — black &amp; grey" loading="lazy"></div>
+        <div class="portfolio-cell" data-style="blackgrey"><img class="portfolio-img" src="/images/work2.webp" alt="Archangel Michael — black &amp; grey" loading="lazy"></div>
+        <div class="portfolio-cell" data-style="fineline"><img class="portfolio-img" src="/images/work3.webp" alt="Swallows and geometry — fineline" loading="lazy"></div>
+        <div class="portfolio-cell" data-style="microrealism"><img class="portfolio-img" src="/images/work4.webp" alt="Ballerina with katana — microrealism" loading="lazy"></div>
+        <div class="portfolio-cell" data-style="symbolic"><img class="portfolio-img" src="/images/work5.webp" alt="Embrace and serpent — symbolic" loading="lazy"></div>
+        <div class="portfolio-cell" data-style="grafika"><img class="portfolio-img" src="/images/work6.webp" alt="Marionette and hand — graphic" loading="lazy"></div>
+        <div class="portfolio-cell" data-style="blackgrey"><img class="portfolio-img" src="/images/work7.webp" alt="Native in geometry — black &amp; grey" loading="lazy"></div>
       </div>
 
       <div class="see-more-row">
@@ -405,10 +409,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
     <div class="marquee" id="flashMarquee">
       <div class="marquee-track" id="flashTrack">
-        <div class="flash-card"><img src="/images/flash-9.jpg"  alt="Flash motif" loading="lazy"></div>
-        <div class="flash-card"><img src="/images/flash-10.jpg" alt="Flash motif" loading="lazy"></div>
-        <div class="flash-card"><img src="/images/flash-11.jpg" alt="Flash motif" loading="lazy"></div>
-        <div class="flash-card"><img src="/images/flash-12.jpg" alt="Flash motif" loading="lazy"></div>
+        <div class="flash-card"><img src="/images/flash-9.webp"  alt="Flash motif" loading="lazy"></div>
+        <div class="flash-card"><img src="/images/flash-10.webp" alt="Flash motif" loading="lazy"></div>
+        <div class="flash-card"><img src="/images/flash-11.webp" alt="Flash motif" loading="lazy"></div>
+        <div class="flash-card"><img src="/images/flash-12.webp" alt="Flash motif" loading="lazy"></div>
       </div>
     </div>
   </section>

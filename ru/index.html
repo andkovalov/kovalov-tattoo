@@ -128,7 +128,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- ═══════════════════════ HERO ══════════════════════ -->
   <section id="hero" aria-label="Главный экран">
     <div class="hero-bg" aria-hidden="true">
-      <img src="/images/hero.jpg" alt="Andrey Kovalov — тату-мастер, Прага" fetchpriority="high">
+      <picture>
+        <source type="image/webp" media="(max-width: 768px)" srcset="/images/hero-mobile.webp">
+        <source type="image/webp" srcset="/images/hero.webp">
+        <img src="/images/hero.jpg" alt="Andrey Kovalov — тату-мастер, Прага" loading="eager" fetchpriority="high">
+      </picture>
     </div>
     <div class="hero-main">
       <div class="hero-eyebrow">Andrey Kovalov · Fine line &amp; black &amp; grey · Прага</div>
@@ -220,25 +224,25 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       <div class="portfolio-grid" id="portfolio-grid">
         <div class="portfolio-cell" data-style="blackgrey">
-          <img class="portfolio-img" src="/images/work1.jpg" alt="Падающий ангел — black &amp; grey" loading="lazy">
+          <img class="portfolio-img" src="/images/work1.webp" alt="Падающий ангел — black &amp; grey" loading="lazy">
         </div>
         <div class="portfolio-cell" data-style="blackgrey">
-          <img class="portfolio-img" src="/images/work2.jpg" alt="Архангел Михаил — black &amp; grey" loading="lazy">
+          <img class="portfolio-img" src="/images/work2.webp" alt="Архангел Михаил — black &amp; grey" loading="lazy">
         </div>
         <div class="portfolio-cell" data-style="fineline">
-          <img class="portfolio-img" src="/images/work3.jpg" alt="Ласточки и геометрия — fineline" loading="lazy">
+          <img class="portfolio-img" src="/images/work3.webp" alt="Ласточки и геометрия — fineline" loading="lazy">
         </div>
         <div class="portfolio-cell" data-style="microrealism">
-          <img class="portfolio-img" src="/images/work4.jpg" alt="Балерина с катаной — microrealism" loading="lazy">
+          <img class="portfolio-img" src="/images/work4.webp" alt="Балерина с катаной — microrealism" loading="lazy">
         </div>
         <div class="portfolio-cell" data-style="symbolic">
-          <img class="portfolio-img" src="/images/work5.jpg" alt="Объятия и змея — symbolic" loading="lazy">
+          <img class="portfolio-img" src="/images/work5.webp" alt="Объятия и змея — symbolic" loading="lazy">
         </div>
         <div class="portfolio-cell" data-style="grafika">
-          <img class="portfolio-img" src="/images/work6.jpg" alt="Марионетка и рука — grafika" loading="lazy">
+          <img class="portfolio-img" src="/images/work6.webp" alt="Марионетка и рука — grafika" loading="lazy">
         </div>
         <div class="portfolio-cell" data-style="blackgrey">
-          <img class="portfolio-img" src="/images/work7.jpg" alt="Индеец в геометрии — black &amp; grey" loading="lazy">
+          <img class="portfolio-img" src="/images/work7.webp" alt="Индеец в геометрии — black &amp; grey" loading="lazy">
         </div>
       </div>
 
@@ -484,10 +488,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
     <div class="marquee" id="flashMarquee">
       <div class="marquee-track" id="flashTrack">
-        <div class="flash-card"><img src="/images/flash-9.jpg"  alt="Флеш-мотив" loading="lazy"></div>
-        <div class="flash-card"><img src="/images/flash-10.jpg" alt="Флеш-мотив" loading="lazy"></div>
-        <div class="flash-card"><img src="/images/flash-11.jpg" alt="Флеш-мотив" loading="lazy"></div>
-        <div class="flash-card"><img src="/images/flash-12.jpg" alt="Флеш-мотив" loading="lazy"></div>
+        <div class="flash-card"><img src="/images/flash-9.webp"  alt="Флеш-мотив" loading="lazy"></div>
+        <div class="flash-card"><img src="/images/flash-10.webp" alt="Флеш-мотив" loading="lazy"></div>
+        <div class="flash-card"><img src="/images/flash-11.webp" alt="Флеш-мотив" loading="lazy"></div>
+        <div class="flash-card"><img src="/images/flash-12.webp" alt="Флеш-мотив" loading="lazy"></div>
       </div>
     </div>
   </section>
