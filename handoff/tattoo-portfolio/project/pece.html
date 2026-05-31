@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b0a08">
+  <title>Péče o tetování — kovalov.tattoo</title>
+  <link rel="stylesheet" href="tokens.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; }
+
+    /* ── HEADER ─────────────────────────────────── */
+    .doc-header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 56px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(11,10,8,0.78);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+    .doc-brand {
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text);
+      font-weight: 400;
+      text-decoration: none;
+      transition: color 0.25s;
+    }
+    .doc-brand:hover { color: var(--accent); }
+    .btn-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-2);
+      text-decoration: none;
+      font-weight: 400;
+      transition: color 0.25s;
+    }
+    .btn-home:hover { color: var(--text); }
+    .btn-home svg { stroke: currentColor; }
+
+    /* ── LAYOUT ─────────────────────────────────── */
+    .doc {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 96px 56px 120px;
+    }
+
+    .doc-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text-2);
+      font-weight: 400;
+      margin-bottom: 22px;
+    }
+    .doc-title {
+      font-size: clamp(34px, 5.4vw, 60px);
+      font-weight: 200;
+      letter-spacing: -0.015em;
+      line-height: 1.05;
+      margin-bottom: 26px;
+    }
+    .doc-intro {
+      font-size: 17px;
+      color: var(--text-2);
+      max-width: 620px;
+      margin-bottom: 18px;
+    }
+    .doc-updated {
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: var(--text-2);
+      opacity: 0.7;
+      padding-bottom: 56px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 64px;
+    }
+
+    /* ── SECTIONS ───────────────────────────────── */
+    .doc-section { margin-bottom: 56px; }
+    .doc-section:last-of-type { margin-bottom: 0; }
+
+    .doc-section-head {
+      display: flex;
+      align-items: baseline;
+      gap: 18px;
+      margin-bottom: 22px;
+    }
+    .doc-num {
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      font-weight: 400;
+      flex-shrink: 0;
+      width: 28px;
+    }
+    .doc-h2 {
+      font-size: clamp(22px, 3vw, 30px);
+      font-weight: 200;
+      letter-spacing: -0.01em;
+      line-height: 1.15;
+    }
+
+    .doc-body { padding-left: 46px; }
+    .doc-body p { font-size: 16px; color: var(--text); }
+    .doc-body p + p { margin-top: 16px; }
+    .doc-body p.muted { color: var(--text-2); }
+
+    .doc-body a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--border-2); transition: border-color 0.2s; }
+    .doc-body a:hover { border-color: var(--accent); }
+
+    .doc-list { list-style: none; margin-top: 18px; }
+    .doc-list li {
+      position: relative;
+      padding-left: 26px;
+      font-size: 16px;
+      color: var(--text);
+    }
+    .doc-list li + li { margin-top: 12px; }
+    .doc-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 11px;
+      width: 7px;
+      height: 1px;
+      background: var(--accent);
+    }
+    .doc-list li strong { font-weight: 500; color: var(--text); }
+
+    /* Do / Don't list with markers */
+    .doc-list.no li::before { background: var(--text-2); width: 9px; height: 9px; top: 6px; border-radius: 50%; background: transparent; border: 1px solid var(--text-2); }
+
+    /* Timeline cards */
+    .care-grid {
+      display: grid;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin-top: 22px;
+    }
+    .care-row {
+      background: var(--bg);
+      padding: 22px 24px;
+    }
+    .care-row-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 8px;
+    }
+    .care-name { font-size: 16px; font-weight: 400; }
+    .care-tag {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border: 1px solid var(--border-2);
+      color: var(--text-2);
+      white-space: nowrap;
+    }
+    .care-tag.acc { color: var(--accent); border-color: var(--accent); }
+    .care-desc { font-size: 14px; color: var(--text-2); }
+
+    .doc-contact {
+      margin-top: 80px;
+      padding: 40px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+    }
+    .doc-contact .doc-h2 { margin-bottom: 14px; }
+    .doc-contact p { font-size: 16px; color: var(--text-2); }
+    .doc-contact .contact-line { margin-top: 18px; display: flex; flex-direction: column; gap: 8px; }
+    .doc-contact .contact-line a { color: var(--text); border-bottom: 1px solid var(--border-2); text-decoration: none; padding-bottom: 1px; width: fit-content; transition: border-color 0.2s; }
+    .doc-contact .contact-line a:hover { border-color: var(--accent); }
+
+    /* ── FOOTER ─────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 56px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-brand {
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text);
+      font-weight: 400;
+    }
+    .footer-copy { font-size: 12px; color: var(--text-2); }
+
+    /* ── MOBILE ─────────────────────────────────── */
+    @media (max-width: 720px) {
+      .doc-header { padding: 18px 22px; }
+      .doc { padding: 64px 22px 80px; }
+      .doc-body { padding-left: 0; }
+      .doc-section-head { gap: 12px; }
+      .doc-num { width: auto; }
+      .doc-contact { padding: 28px 24px; }
+      footer { flex-wrap: wrap; gap: 14px; padding: 22px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════ HEADER ════════════════════ -->
+  <header class="doc-header">
+    <a href="index.html" class="doc-brand">kovalov.tattoo</a>
+    <a href="index.html" class="btn-home">
+      <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+        <path d="M9 3L5 7.5 9 12" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Zpět na web
+    </a>
+  </header>
+
+  <!-- ═══════════════════════ DOCUMENT ══════════════════ -->
+  <main class="doc">
+
+    <div class="doc-eyebrow">Po sezení</div>
+    <h1 class="doc-title">Péče o tetování</h1>
+    <p class="doc-intro">Kvalitní hojení je polovina výsledku. Drž se tohoto návodu — díky němu zůstanou linky čisté, barva sytá a kůže klidná. Pokud si nebudeš jistý/á, ozvi se, rád poradím.</p>
+    <p class="doc-updated">Postup pro hojivou fólii Suprasorb F a obdoby</p>
+
+    <!-- 01 -->
+    <section class="doc-section">
+      <div class="doc-section-head">
+        <span class="doc-num">01</span>
+        <h2 class="doc-h2">Hojivá fólie hned po sezení</h2>
+      </div>
+      <div class="doc-body">
+        <p>Tetování přelepím speciální hojivou fólií (Suprasorb F nebo obdoba). Funguje jako druhá kůže — chrání čerstvé tetování před bakteriemi a první dny nemusíš nic mazat ani řešit.</p>
+        <p class="muted">Pod fólií se hromadí míza, krev a přebytečný inkoust — je to normální, nelekej se zakaleného obsahu.</p>
+      </div>
+    </section>
+
+    <!-- 02 -->
+    <section class="doc-section">
+      <div class="doc-section-head">
+        <span class="doc-num">02</span>
+        <h2 class="doc-h2">Sejmutí fólie</h2>
+      </div>
+      <div class="doc-body">
+        <p>Fólii nech na kůži <strong>3–5 dní</strong> (přesnou dobu ti řeknu podle motivu a místa). Sundávej ji pomalu pod proudem vlažné vody — voda uvolní lepidlo a sejmutí nebude nepříjemné.</p>
+        <p>Stahuj fólii ve směru růstu chloupků, ne kolmo od kůže. Nikdy ji nestrhávej rychle za sucha.</p>
+      </div>
+    </section>
+
+    <!-- 03 -->
+    <section class="doc-section">
+      <div class="doc-section-head">
+        <span class="doc-num">03</span>
+        <h2 class="doc-h2">Mytí a mazání</h2>
+      </div>
+      <div class="doc-body">
+        <p>Po sejmutí fólie pečuj o tetování takto:</p>
+        <ul class="doc-list">
+          <li><strong>Umyj</strong> tetování vlažnou vodou a jemným antibakteriálním mýdlem bez parfemace. Použij čisté ruce, ne žínku.</li>
+          <li><strong>Osuš</strong> jemným poklepáním čistým papírovým ručníkem — nikdy netři.</li>
+          <li><strong>Promazávej</strong> 2–3× denně tenkou vrstvou hojivého krému (Panthenol, Bepanthen nebo obdoba). Krém má kůži zvláčnit, ne ji „zalít“.</li>
+        </ul>
+        <p class="muted">Mazej po dobu hojení, zhruba 10–14 dní, dokud kůže nepřestane být napjatá.</p>
+      </div>
+    </section>
+
+    <!-- 04 -->
+    <section class="doc-section">
+      <div class="doc-section-head">
+        <span class="doc-num">04</span>
+        <h2 class="doc-h2">Čemu se během hojení vyhnout</h2>
+      </div>
+      <div class="doc-body">
+        <p>Prvních zhruba 14 dní raději vynech:</p>
+        <ul class="doc-list no">
+          <li>Koupání ve vaně, bazén, saunu a moře — žádné dlouhé namáčení.</li>
+          <li>Přímé slunce a solárium. Vyhojené tetování pak vždy chraň krémem SPF 50.</li>
+          <li>Škrábání a strhávání stroupků a šupinek — i když to svědí. Necháš jizvy a vypadlou barvu.</li>
+          <li>Intenzivní sport a pocení prvních pár dní.</li>
+          <li>Těsné oblečení, které se o tetování dře.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 05 -->
+    <section class="doc-section">
+      <div class="doc-section-head">
+        <span class="doc-num">05</span>
+        <h2 class="doc-h2">Jak hojení probíhá</h2>
+      </div>
+      <div class="doc-body">
+        <p>Každá kůže se hojí trochu jinak, ale obvykle to vypadá takto:</p>
+        <div class="care-grid">
+          <div class="care-row">
+            <div class="care-row-head">
+              <span class="care-name">Dny 1–5</span>
+              <span class="care-tag acc">Fólie</span>
+            </div>
+            <p class="care-desc">Tetování je pod hojivou fólií. Nemažeš, jen sleduješ, že fólie drží a nepropouští.</p>
+          </div>
+          <div class="care-row">
+            <div class="care-row-head">
+              <span class="care-name">Dny 5–14</span>
+              <span class="care-tag">Loupání</span>
+            </div>
+            <p class="care-desc">Kůže se začne olupovat a svědit, můžou se tvořit jemné šupinky. Pravidelně myj a tence promazávej.</p>
+          </div>
+          <div class="care-row">
+            <div class="care-row-head">
+              <span class="care-name">3.–6. týden</span>
+              <span class="care-tag">Dohojení</span>
+            </div>
+            <p class="care-desc">Povrch je zahojený, hlubší vrstvy kůže dozrávají. Barva se „usadí“ a ustálí do finální podoby.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 -->
+    <section class="doc-section">
+      <div class="doc-section-head">
+        <span class="doc-num">06</span>
+        <h2 class="doc-h2">Kdy se mi ozvat</h2>
+      </div>
+      <div class="doc-body">
+        <p>Mírné zarudnutí, otok a teplo v prvních dnech jsou normální. Napiš mi ale, pokud se objeví:</p>
+        <ul class="doc-list">
+          <li>silnější bolest, otok nebo zarudnutí, které se po pár dnech zhoršuje,</li>
+          <li>hnis, nezvyklý zápach nebo horečka,</li>
+          <li>jakákoli nejistota ohledně hojení — radši se zeptej hned.</li>
+        </ul>
+        <p class="muted">Drobné korekce po zahojení řešíme individuálně. Tvoje spokojenost s výsledkem je pro mě priorita.</p>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="doc-contact">
+      <h2 class="doc-h2">Máš dotaz k hojení?</h2>
+      <p>Napiš mi kdykoli během hojení — ozvu se co nejdřív a poradím.</p>
+      <div class="contact-line">
+        <a href="https://t.me/" target="_blank" rel="noopener">Telegram</a>
+        <a href="https://instagram.com/" target="_blank" rel="noopener">Instagram</a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══════════════════════ FOOTER ════════════════════ -->
+  <footer>
+    <div class="footer-brand">kovalov.tattoo</div>
+    <div class="footer-copy">© 2025 — Všechna práva vyhrazena</div>
+  </footer>
+
+</body>
+</html>

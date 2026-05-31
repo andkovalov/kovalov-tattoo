@@ -1,0 +1,57 @@
+/* ════════════════════════════════════════════════════════════
+   kovalov.tattoo — design tokens
+   ════════════════════════════════════════════════════════════ */
+
+@font-face {
+  font-family: 'Mazzard';
+  src: url('../fonts/MazzardH-Thin.ttf') format('truetype');
+  font-weight: 100; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Mazzard';
+  src: url('../fonts/MazzardH-ExtraLight.ttf') format('truetype');
+  font-weight: 200; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Mazzard';
+  src: url('../fonts/MazzardH-Light.ttf') format('truetype');
+  font-weight: 300; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Mazzard';
+  src: url('../fonts/MazzardH-Regular.ttf') format('truetype');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Mazzard';
+  src: url('../fonts/MazzardH-Medium.ttf') format('truetype');
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Mazzard';
+  src: url('../fonts/MazzardH-SemiBold.ttf') format('truetype');
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Mazzard';
+  src: url('../fonts/MazzardH-Black.otf') format('opentype');
+  font-weight: 900; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Mazzard';
+  src: url('../fonts/MazzardH-BoldItalic.ttf') format('truetype');
+  font-weight: 700; font-style: italic; font-display: swap;
+}
+
+:root {
+  --bg:       #0b0a08;
+  --surface:  #131210;
+  --border:   #222018;
+  --border-2: #2e2b25;
+  --text:     #ece7dc;
+  --text-2:   #6b6760;
+  --accent:   #b8a88a;
+  --font:     'Mazzard', sans-serif;
+  --border2:  var(--border-2);
+  --text2:    var(--text-2);
+}

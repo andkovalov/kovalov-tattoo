@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0b0a08">
+  <title>Заявка — kovalov.tattoo</title>
+  <link rel="stylesheet" href="tokens.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+      overscroll-behavior: none;
+    }
+
+    /* ── LAYOUT ─────────────────────────────────── */
+    .quiz-wrap {
+      display: flex;
+      flex-direction: column;
+      height: 100dvh;
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 0 24px 32px;
+    }
+
+    /* ── HEADER ─────────────────────────────────── */
+    .quiz-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 28px;
+      padding-bottom: 32px;
+      flex-shrink: 0;
+    }
+    .quiz-brand {
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-2);
+      font-weight: 400;
+    }
+    .btn-back {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-family: var(--font);
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-2);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: color 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn-back svg { stroke: currentColor; }
+    .btn-back:active { color: var(--text); }
+    .btn-back.hidden { visibility: hidden; pointer-events: none; }
+    .quiz-close {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      background: none;
+      border: 1px solid var(--border-2);
+      border-radius: 50%;
+      cursor: pointer;
+      color: var(--text-2);
+      -webkit-tap-highlight-color: transparent;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .quiz-close:active { border-color: var(--text-2); color: var(--text); }
+
+    /* ── PROGRESS (above question) ──────────────── */
+    .progress-wrap {
+      flex-shrink: 0;
+      margin-bottom: 32px;
+    }
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .progress-label {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 400;
+    }
+    .progress-counter {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--text-2);
+      font-weight: 300;
+    }
+    .progress-track {
+      height: 1px;
+      background: var(--border-2);
+    }
+    .progress-fill {
+      height: 100%;
+      background: var(--accent);
+      transition: width 0.5s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    /* ── STEP CONTAINER ─────────────────────────── */
+    .step-container {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
+    .step {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(28px);
+      transition: opacity 0.32s ease, transform 0.32s cubic-bezier(0.16,1,0.3,1);
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 8px;
+    }
+    .step.active {
+      opacity: 1;
+      pointer-events: all;
+      transform: translateX(0);
+    }
+    .step.exit {
+      opacity: 0;
+      transform: translateX(-28px);
+    }
+
+    /* ── QUESTION ───────────────────────────────── */
+    .step-question {
+      font-size: clamp(26px, 6.5vw, 36px);
+      font-weight: 200;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin-bottom: 36px;
+    }
+
+    /* ── TEXT INPUT STEP ────────────────────────── */
+    .text-step-input {
+      width: 100%;
+      background: none;
+      border: none;
+      border-bottom: 1px solid var(--border-2);
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 20px;
+      font-weight: 200;
+      padding: 12px 0;
+      outline: none;
+      resize: none;
+      min-height: 56px;
+      line-height: 1.5;
+      transition: border-color 0.25s;
+      -webkit-appearance: none;
+    }
+    .text-step-input::placeholder { color: var(--border-2); font-size: 17px; font-weight: 300; }
+    .text-step-input:focus { border-color: var(--accent); }
+
+    .text-hint {
+      font-size: 12px;
+      color: var(--text-2);
+      margin-top: 12px;
+      font-weight: 300;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .text-hint.show { opacity: 1; }
+
+    .btn-next {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      width: 100%;
+      padding: 17px 24px;
+      background: var(--text);
+      color: var(--bg);
+      font-family: var(--font);
+      font-size: 13px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 400;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.2s, background 0.2s;
+      -webkit-tap-highlight-color: transparent;
+      min-height: 56px;
+      margin-top: auto;
+    }
+    .btn-next:disabled { background: var(--border-2); color: var(--text-2); cursor: not-allowed; }
+    .btn-next:not(:disabled):active { opacity: 0.85; }
+    /* remove duplicate margin-top from inline */ 
+
+    /* ── OPTION CARDS ───────────────────────────── */
+    .options { display: flex; flex-direction: column; gap: 10px; }
+    .option-card {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 18px 20px;
+      border: 1px solid var(--border-2);
+      background: none;
+      color: var(--text);
+      font-family: var(--font);
+      cursor: pointer;
+      text-align: left;
+      transition: border-color 0.2s, background 0.2s;
+      -webkit-tap-highlight-color: transparent;
+      min-height: 64px;
+    }
+    .option-card:active { background: rgba(236,231,220,0.04); }
+    .option-card.selected { border-color: var(--text); background: rgba(236,231,220,0.05); }
+
+    .option-index {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: var(--text-2);
+      font-weight: 400;
+      flex-shrink: 0;
+      width: 18px;
+      text-align: center;
+    }
+    .option-card.selected .option-index { color: var(--accent); }
+    .option-vline { width: 1px; height: 30px; background: var(--border-2); flex-shrink: 0; }
+    .option-content { flex: 1; }
+    .option-title { font-size: 15px; font-weight: 300; line-height: 1.3; }
+    .option-sub { font-size: 12px; color: var(--text-2); font-weight: 300; margin-top: 3px; line-height: 1.3; }
+    .option-check {
+      flex-shrink: 0;
+      width: 18px; height: 18px;
+      border: 1px solid var(--border-2);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .option-card.selected .option-check { border-color: var(--accent); background: var(--accent); }
+    .option-check svg { display: none; }
+    .option-card.selected .option-check svg { display: block; }
+
+    /* "Другое" input inside card */
+    .option-input-wrap { display: none; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); }
+    .option-card.selected .option-input-wrap { display: block; }
+    .option-text-input {
+      width: 100%; background: none; border: none;
+      border-bottom: 1px solid var(--border-2);
+      color: var(--text); font-family: var(--font);
+      font-size: 15px; font-weight: 300; padding: 8px 0; outline: none;
+      transition: border-color 0.2s;
+    }
+    .option-text-input::placeholder { color: var(--text-2); }
+    .option-text-input:focus { border-color: var(--accent); }
+
+    /* Price badge */
+    .option-badge {
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      font-weight: 400;
+      border: 1px solid var(--border-2);
+      padding: 4px 10px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* ── DROPDOWN (step 2) ──────────────────────── */
+    .quiz-select { position: relative; }
+    .quiz-select-trigger {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      width: 100%; min-height: 60px; padding: 17px 20px;
+      background: none; border: 1px solid var(--border-2);
+      color: var(--text); font-family: var(--font);
+      font-size: 16px; font-weight: 300;
+      cursor: pointer; text-align: left;
+      -webkit-tap-highlight-color: transparent;
+      transition: border-color 0.2s;
+    }
+    .quiz-select.open .quiz-select-trigger { border-color: var(--text); }
+    .quiz-select-value.placeholder { color: var(--text-2); }
+    .quiz-select-chevron {
+      stroke: var(--text-2); flex-shrink: 0;
+      transition: transform 0.3s cubic-bezier(0.16,1,0.3,1);
+    }
+    .quiz-select.open .quiz-select-chevron { transform: rotate(180deg); }
+    .quiz-select-menu {
+      position: absolute; top: calc(100% + 6px); left: 0; right: 0; z-index: 40;
+      background: var(--surface); border: 1px solid var(--border-2);
+      max-height: 264px; overflow-y: auto;
+      opacity: 0; transform: translateY(-8px); pointer-events: none;
+      transition: opacity 0.22s cubic-bezier(0.16,1,0.3,1),
+                  transform 0.22s cubic-bezier(0.16,1,0.3,1);
+    }
+    .quiz-select.open .quiz-select-menu { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    .quiz-select-opt {
+      display: block; width: 100%; text-align: left;
+      padding: 14px 20px; background: none; border: none;
+      border-bottom: 1px solid var(--border);
+      color: var(--text); font-family: var(--font);
+      font-size: 15px; font-weight: 300;
+      cursor: pointer; -webkit-tap-highlight-color: transparent;
+      transition: background 0.15s, color 0.15s;
+    }
+    .quiz-select-opt:last-child { border-bottom: none; }
+    .quiz-select-opt:active,
+    .quiz-select-opt.selected { background: rgba(236,231,220,0.05); color: var(--accent); }
+    .quiz-other-wrap { display: none; margin-top: 16px; }
+    .quiz-other-wrap.show { display: block; }
+
+    /* ── STEP 5 CONTACTS ────────────────────────── */
+    .form-field { margin-bottom: 28px; }
+    .form-label {
+      font-size: 11px; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--text-2);
+      font-weight: 400; display: block; margin-bottom: 12px;
+    }
+    .form-input {
+      width: 100%; background: none; border: none;
+      border-bottom: 1px solid var(--border-2);
+      color: var(--text); font-family: var(--font);
+      font-size: 20px; font-weight: 200; padding: 10px 0; outline: none;
+      transition: border-color 0.25s; -webkit-appearance: none;
+    }
+    .form-input::placeholder { color: var(--border-2); font-weight: 300; font-size: 17px; }
+    .form-input:focus { border-color: var(--accent); }
+
+    .submit-row {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: auto;
+      padding-top: 16px;
+    }
+    .btn-messenger {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 17px 24px;
+      font-family: var(--font);
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 400;
+      border: none;
+      cursor: pointer;
+      min-height: 56px;
+      transition: opacity 0.2s, background 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn-messenger:disabled { opacity: 0.35; cursor: not-allowed; }
+    .btn-messenger:not(:disabled):active { opacity: 0.85; }
+    .btn-tg { background: var(--text); color: var(--bg); }
+    .btn-wa { background: none; border: 1px solid var(--border-2); color: var(--text-2); }
+    .btn-wa:not(:disabled):hover { border-color: var(--text-2); color: var(--text); }
+
+    /* ── SUCCESS SCREEN ─────────────────────────── */
+    #screen-success {
+      position: fixed; inset: 0; background: var(--bg);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 48px 32px;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.45s ease;
+    }
+    #screen-success.visible { opacity: 1; pointer-events: all; }
+    .success-icon {
+      width: 52px; height: 52px;
+      border: 1px solid var(--border-2); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 28px;
+    }
+    .success-title {
+      font-size: 32px; font-weight: 200;
+      letter-spacing: -0.02em; margin-bottom: 16px; line-height: 1.1;
+    }
+    .success-sub { font-size: 15px; color: var(--text-2); line-height: 1.7; max-width: 280px; }
+
+    /* On phones, keep the question + options centered in the free space
+       (button stays pinned to the bottom) so steps with few options — e.g.
+       step 2 & 3 — don't leave a big vertical void at the bottom.
+       `safe` centering falls back to top-aligned if content ever overflows. */
+    @media (max-width: 600px) {
+      .step { justify-content: flex-start; padding-bottom: 84px; }
+      .btn-next { position: absolute; left: 0; right: 0; bottom: 0; margin-top: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Success screen -->
+  <div id="screen-success">
+    <div class="success-icon">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d="M4 10l4 4 8-8" stroke="#b8a88a" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <h2 class="success-title">Заявка отправлена!</h2>
+    <p class="success-sub">Открыли мессенджер с твоей заявкой — если текст не вставился сам, он скопирован, просто вставь. Через пару секунд вернём тебя на главную…</p>
+  </div>
+
+  <div class="quiz-wrap">
+
+    <!-- Header -->
+    <div class="quiz-header">
+      <button class="btn-back hidden" id="btnBack">
+        <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+          <path d="M9 3L5 7.5 9 12" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Назад
+      </button>
+      <div class="quiz-brand">kovalov.tattoo</div>
+      <button class="quiz-close" id="btnClose">
+        <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
+          <path d="M1 1l9 9M10 1L1 10" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Progress bar (above question) -->
+    <div class="progress-wrap">
+      <div class="progress-meta">
+        <span class="progress-label" id="stepLabel">Шаг 1</span>
+        <span class="progress-counter" id="stepCounter">1 / 4</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill" style="width:25%"></div>
+      </div>
+    </div>
+
+    <!-- Steps -->
+    <div class="step-container">
+
+      <!-- STEP 1: Free text — co chce -->
+      <div class="step active" id="step-1">
+        <h2 class="step-question">Что хочешь себе сделать?</h2>
+        <textarea class="text-step-input" id="input-idea" rows="1"
+          placeholder="Опиши идею, мотив или ощущение..."
+          maxlength="300"
+          oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px';checkStep1()"></textarea>
+        <div class="text-hint" id="hint-idea">Можно кратко — пара слов или предложение</div>
+        <button class="btn-next" id="btn-next-1" disabled onclick="goTo(2)">
+          Продолжить
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- STEP 2: Location (dropdown) -->
+      <div class="step" id="step-2">
+        <h2 class="step-question">Куда пойдёт татуировка?</h2>
+        <div class="quiz-select" id="locSelect">
+          <button type="button" class="quiz-select-trigger" id="locTrigger" aria-haspopup="listbox" aria-expanded="false">
+            <span class="quiz-select-value placeholder" id="locValue">Выбери место</span>
+            <svg class="quiz-select-chevron" width="12" height="7" viewBox="0 0 12 7" fill="none"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="quiz-select-menu" id="locMenu" role="listbox">
+            <button type="button" class="quiz-select-opt" data-value="Рука — предплечье">Рука — предплечье</button>
+            <button type="button" class="quiz-select-opt" data-value="Плечо">Плечо</button>
+            <button type="button" class="quiz-select-opt" data-value="Запястье / кисть">Запястье / кисть</button>
+            <button type="button" class="quiz-select-opt" data-value="Полный рукав">Полный рукав</button>
+            <button type="button" class="quiz-select-opt" data-value="Нога — бедро / голень">Нога — бедро / голень</button>
+            <button type="button" class="quiz-select-opt" data-value="Спина">Спина</button>
+            <button type="button" class="quiz-select-opt" data-value="Грудь / ключица">Грудь / ключица</button>
+            <button type="button" class="quiz-select-opt" data-value="Рёбра / бок">Рёбра / бок</button>
+            <button type="button" class="quiz-select-opt" data-value="Шея">Шея</button>
+            <button type="button" class="quiz-select-opt" data-value="__other">Другое место</button>
+          </div>
+        </div>
+        <div class="quiz-other-wrap" id="locOtherWrap">
+          <input class="text-step-input" id="locOtherInput" type="text" placeholder="Напиши куда..." maxlength="60">
+        </div>
+        <button class="btn-next" id="btn-next-2" disabled onclick="goTo(3)">Продолжить <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
+
+      <!-- STEP 3: Size -->
+      <div class="step" id="step-3">
+        <h2 class="step-question">Примерный размер?</h2>
+        <div class="options">
+          <button class="option-card" data-step="3" data-value="Миниатюра (до 10 см)">
+            <span class="option-index">A</span><div class="option-vline"></div>
+            <div class="option-content"><div class="option-title">Миниатюра</div><div class="option-sub">До 10 см — лаконичный символ</div></div>
+            <div class="option-check"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#0b0a08" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </button>
+          <button class="option-card" data-step="3" data-value="Средняя (10–25 см)">
+            <span class="option-index">B</span><div class="option-vline"></div>
+            <div class="option-content"><div class="option-title">Средняя</div><div class="option-sub">10–25 см — простор для истории</div></div>
+            <div class="option-check"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#0b0a08" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </button>
+          <button class="option-card" data-step="3" data-value="Большая (от 25 см)">
+            <span class="option-index">C</span><div class="option-vline"></div>
+            <div class="option-content"><div class="option-title">Большая</div><div class="option-sub">От 25 см — серьёзная работа</div></div>
+            <div class="option-check"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#0b0a08" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </button>
+        </div>
+        <button class="btn-next" id="btn-next-3" disabled onclick="goTo(4)">Продолжить <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
+
+      <!-- STEP 4: Contacts -->
+      <div class="step" id="step-4">
+        <h2 class="step-question">Как с тобой связаться?</h2>
+        <div class="form-field">
+          <label class="form-label" for="inputName">Как тебя зовут</label>
+          <input class="form-input" id="inputName" type="text" placeholder="Имя" autocomplete="given-name" maxlength="60">
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="inputContact">Telegram или WhatsApp</label>
+          <input class="form-input" id="inputContact" type="text" placeholder="@username или +420..." autocomplete="off" maxlength="60">
+        </div>
+        <div class="submit-row">
+          <button class="btn-messenger btn-tg" id="btnTg" disabled>
+            <svg width="18" height="18" viewBox="0 0 32 32" fill="none">
+              <path d="M1.96187 14.2309C1.96187 14.2309 16.1147 8.20977 21.0231 6.0896C22.9048 5.2416 29.2858 2.52777 29.2858 2.52777C29.2858 2.52777 32.2309 1.34057 31.9855 4.22388C31.9036 5.4112 31.2492 9.56657 30.5948 14.0613C29.613 20.4217 28.5495 27.3756 28.5495 27.3756C28.5495 27.3756 28.3859 29.3262 26.9952 29.6654C25.6045 30.0046 23.3137 28.4782 22.9048 28.1389C22.5775 27.8845 16.7691 24.0682 14.6421 22.2025C14.0694 21.6937 13.415 20.6761 14.7239 19.4888C17.669 16.6902 21.1867 13.2133 23.3137 11.0083C24.2955 9.99063 25.2771 7.61611 21.1867 10.4994C15.3784 14.6549 9.65184 18.5559 9.65184 18.5559C9.65184 18.5559 8.34287 19.4039 5.88866 18.6407C3.43433 17.8775 0.571038 16.8598 0.571038 16.8598C0.571038 16.8598 -1.39224 15.5878 1.96187 14.2309V14.2309Z" fill="currentColor"></path>
+            </svg>
+            Написать в Telegram
+          </button>
+          <button class="btn-messenger btn-wa" id="btnWa" disabled>
+            <svg width="18" height="18" viewBox="0 0 32 32" fill="none">
+              <path d="M16.0049 0.00390625C24.8257 0.00390625 32.0009 7.17921 32.001 16C32.001 24.8206 24.8257 31.9961 16.0049 31.9961C12.7512 31.996 9.73256 31.0273 7.20312 29.3535L1.05273 31.3184L3.04688 25.376C1.12858 22.7427 2.83929e-05 19.4982 0 16C0 7.17914 7.17524 0.00390625 15.9961 0.00390625H16.0049ZM9.97754 7.32031C9.36606 7.32031 8.72645 7.49864 8.34082 7.89355C7.87069 8.37322 6.70521 9.49206 6.70508 11.7861C6.70508 14.0808 8.3789 16.3008 8.60449 16.6113C8.84147 16.9243 11.8691 21.6992 16.5693 23.6455C20.2457 25.1687 21.3371 25.0272 22.1738 24.8486C23.3963 24.5854 24.9298 23.6823 25.3154 22.5918C25.701 21.5008 25.701 20.5695 25.5879 20.3721C25.4751 20.1747 25.1643 20.0625 24.6943 19.8271C24.2244 19.592 21.9401 18.4633 21.5068 18.3125C21.0835 18.1527 20.6789 18.2097 20.3594 18.6611C19.908 19.2911 19.4659 19.9311 19.1084 20.3164C18.8263 20.617 18.3657 20.654 17.9805 20.4941C17.4632 20.2781 16.0145 19.7699 14.2275 18.1807C12.8455 16.9492 11.9055 15.417 11.6328 14.9561C11.36 14.486 11.6043 14.2127 11.8203 13.959C12.0555 13.6673 12.2815 13.4603 12.5166 13.1875C12.7516 12.9152 12.8828 12.7738 13.0332 12.4541C13.1932 12.1438 13.0806 11.824 12.9678 11.5889C12.8547 11.3529 11.915 9.05976 11.5293 8.12891C11.2191 7.3861 10.9836 7.35798 10.5137 7.33887C10.3352 7.32737 10.1564 7.3212 9.97754 7.32031Z" fill="currentColor"></path>
+            </svg>
+            Написать в WhatsApp
+          </button>
+        </div>
+      </div>
+
+    </div><!-- /step-container -->
+  </div><!-- /quiz-wrap -->
+
+  <script>
+    var TG_USERNAME  = 'andkovalov'; // ← замени на свой Telegram юзернейм
+    var WA_PHONE     = '420776273563';     // ← замени на номер WhatsApp (без + и пробелов)
+
+    var currentStep = 1;
+    var totalSteps  = 4;
+    var answers     = { idea: '', location: '', size: '', name: '', contact: '' };
+    var stepKeys    = [null, 'idea', 'location', 'size'];
+    var stepTitles  = ['Шаг 1', 'Шаг 2', 'Шаг 3', 'Шаг 4'];
+
+    var progressFill = document.getElementById('progressFill');
+    var stepLabel    = document.getElementById('stepLabel');
+    var stepCounter  = document.getElementById('stepCounter');
+    var btnBack      = document.getElementById('btnBack');
+    var btnClose     = document.getElementById('btnClose');
+    var inputName    = document.getElementById('inputName');
+    var inputContact = document.getElementById('inputContact');
+    var btnTg        = document.getElementById('btnTg');
+    var btnWa        = document.getElementById('btnWa');
+
+    // ── Helpers ────────────────────────────────────────────
+    function updateProgress() {
+      progressFill.style.width = (currentStep / totalSteps * 100) + '%';
+      stepLabel.textContent    = stepTitles[currentStep - 1];
+      stepCounter.textContent  = currentStep + ' / ' + totalSteps;
+      btnBack.classList.toggle('hidden', currentStep === 1);
+    }
+
+    function goTo(next) {
+      if (next < 1 || next > totalSteps) return;
+      var curr   = document.getElementById('step-' + currentStep);
+      var nextEl = document.getElementById('step-' + next);
+
+      curr.classList.remove('active');
+      curr.classList.add('exit');
+
+      setTimeout(function () {
+        curr.classList.remove('exit');
+        nextEl.classList.add('active');
+        currentStep = next;
+        updateProgress();
+      }, 300);
+    }
+
+    function goBack() {
+      if (currentStep <= 1) return;
+      var curr = document.getElementById('step-' + currentStep);
+      var prev = document.getElementById('step-' + (currentStep - 1));
+
+      curr.style.transition = 'none';
+      curr.classList.remove('active');
+      curr.style.transform = 'translateX(28px)';
+      curr.style.opacity = '0';
+
+      setTimeout(function () {
+        curr.style.transition = '';
+        curr.style.transform  = '';
+        curr.style.opacity    = '';
+        prev.style.transition = 'none';
+        prev.style.transform  = 'translateX(-28px)';
+        prev.style.opacity    = '0';
+        prev.classList.add('active');
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            prev.style.transition = '';
+            prev.style.transform  = '';
+            prev.style.opacity    = '';
+          });
+        });
+        currentStep--;
+        updateProgress();
+      }, 30);
+    }
+
+    // ── Step 1: text idea ──────────────────────────────────
+    var inputIdea  = document.getElementById('input-idea');
+    var hintIdea   = document.getElementById('hint-idea');
+    var btnNext1   = document.getElementById('btn-next-1');
+
+    function checkStep1() {
+      var val = inputIdea.value.trim();
+      btnNext1.disabled = val.length === 0;
+      hintIdea.classList.toggle('show', val.length > 0 && val.length < 10);
+      answers.idea = val;
+    }
+    inputIdea.addEventListener('input', checkStep1);
+
+    // ── Steps 2-4: option cards ────────────────────────────
+    [3].forEach(function (s) {
+      var stepEl = document.getElementById('step-' + s);
+      var cards  = stepEl.querySelectorAll('.option-card');
+
+      cards.forEach(function (card) {
+        card.addEventListener('click', function (e) {
+          if (e.target.tagName === 'INPUT') return;
+
+          cards.forEach(function (c) { c.classList.remove('selected'); });
+          card.classList.add('selected');
+
+          var val = card.dataset.value;
+          var textIn = card.querySelector('.option-text-input');
+          if (textIn && textIn.value.trim()) val = textIn.value.trim();
+          answers[stepKeys[s]] = val;
+
+          var nextBtn = document.getElementById('btn-next-' + s);
+          if (nextBtn) nextBtn.disabled = false;
+        });
+
+        var textIn = card.querySelector('.option-text-input');
+        if (textIn) {
+          textIn.addEventListener('input', function (e) {
+            e.stopPropagation();
+            answers[stepKeys[s]] = textIn.value.trim() || card.dataset.value;
+          });
+          textIn.addEventListener('click', function (e) { e.stopPropagation(); });
+        }
+      });
+    });
+
+    // ── Step 2: location dropdown ──────────────────────────
+    (function () {
+      var sel        = document.getElementById('locSelect');
+      var trigger    = document.getElementById('locTrigger');
+      var menu       = document.getElementById('locMenu');
+      var valEl      = document.getElementById('locValue');
+      var otherWrap  = document.getElementById('locOtherWrap');
+      var otherInput = document.getElementById('locOtherInput');
+      var nextBtn    = document.getElementById('btn-next-2');
+      var chosen     = null;
+
+      function refresh() {
+        var ok = (chosen === '__other') ? otherInput.value.trim().length > 0 : !!chosen;
+        nextBtn.disabled = !ok;
+        if (ok) answers.location = (chosen === '__other') ? otherInput.value.trim() : chosen;
+      }
+
+      trigger.addEventListener('click', function (e) {
+        e.stopPropagation();
+        sel.classList.toggle('open');
+        trigger.setAttribute('aria-expanded', sel.classList.contains('open'));
+      });
+
+      menu.querySelectorAll('.quiz-select-opt').forEach(function (opt) {
+        opt.addEventListener('click', function () {
+          menu.querySelectorAll('.quiz-select-opt').forEach(function (o) { o.classList.remove('selected'); });
+          opt.classList.add('selected');
+          chosen = opt.dataset.value;
+          valEl.textContent = opt.textContent;
+          valEl.classList.remove('placeholder');
+          otherWrap.classList.toggle('show', chosen === '__other');
+          if (chosen === '__other') { setTimeout(function () { otherInput.focus(); }, 60); }
+          sel.classList.remove('open');
+          trigger.setAttribute('aria-expanded', 'false');
+          refresh();
+        });
+      });
+
+      otherInput.addEventListener('input', refresh);
+      document.addEventListener('click', function () {
+        sel.classList.remove('open');
+        trigger.setAttribute('aria-expanded', 'false');
+      });
+    })();
+
+    // ── Step 5: contacts ───────────────────────────────────
+    function checkContacts() {
+      var ok = inputName.value.trim().length > 0 && inputContact.value.trim().length > 0;
+      btnTg.disabled = !ok;
+      btnWa.disabled = !ok;
+    }
+    inputName.addEventListener('input', checkContacts);
+    inputContact.addEventListener('input', checkContacts);
+
+    // ── Build message ──────────────────────────────────────
+    function buildMessage() {
+      return [
+        'Привет! Я заполнил(а) бриф на сайте kovalov.tattoo.',
+        '',
+        'Идея: ' + answers.idea,
+        'Место: ' + answers.location,
+        'Размер: ' + answers.size,
+        '',
+        'Меня зовут ' + answers.name + '.',
+        'Контакт: ' + answers.contact
+      ].join('\n');
+    }
+
+    // ── Meta Ads event stub ────────────────────────────────
+    function triggerMetaAdsEvent(data) {
+      // TODO: вставь сюда вызов Facebook Pixel / Meta CAPI
+      // fbq('track', 'Lead', { idea: data.idea, size: data.size });
+      console.log('Lead event:', data);
+    }
+
+    // ── Home (localized) ───────────────────────────────────
+    var HOME = ({ cs: 'index.html', ru: 'index-ru.html', en: 'index-en.html' })[(document.documentElement.lang || 'cs').slice(0, 2)] || 'index.html';
+
+    // ── Submit: open the messenger with the collected brief, confirm, then return home ──
+    function finishSubmit(url) {
+      answers.name    = inputName.value.trim();
+      answers.contact = inputContact.value.trim();
+      triggerMetaAdsEvent(answers);
+      var msg = buildMessage();
+      // Safety net: copy the brief — Telegram can't pre-fill a message to a personal account via a link.
+      try { if (navigator.clipboard) navigator.clipboard.writeText(msg); } catch (e) {}
+      // Open in a new tab so this page can show the confirmation and return home.
+      window.open(url + encodeURIComponent(msg), '_blank');
+      document.getElementById('screen-success').classList.add('visible');
+      setTimeout(function () { window.location.href = HOME; }, 4500);
+    }
+
+    btnTg.addEventListener('click', function () {
+      if (btnTg.disabled) return;
+      finishSubmit('https://t.me/' + TG_USERNAME + '?text=');
+    });
+
+    btnWa.addEventListener('click', function () {
+      if (btnWa.disabled) return;
+      finishSubmit('https://wa.me/' + WA_PHONE + '?text=');
+    });
+
+    // ── Back & Close ───────────────────────────────────────
+    btnBack.addEventListener('click', goBack);
+    btnClose.addEventListener('click', function () {
+      if (document.referrer) { history.back(); }
+      else { window.location.href = 'index-ru.html'; }
+    });
+
+    // ── Init ───────────────────────────────────────────────
+    updateProgress();
+  </script>
+</body>
+</html>
