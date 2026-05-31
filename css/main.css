@@ -127,6 +127,26 @@ body {
 .mobile-menu-links a:active { color: var(--accent); }
 .mobile-menu-cta { padding: 15px 32px 13px; font-size: 12px; }
 .mobile-menu-social { display: flex; gap: 14px; margin-top: 4px; }
+.mobile-menu-lang {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin-top: 4px;
+}
+.mobile-lang-btn {
+  font-family: var(--font);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 400;
+  color: var(--text-2);
+  text-decoration: none;
+  padding: 7px 12px;
+  border: 1px solid var(--border);
+  transition: color 0.2s, border-color 0.2s;
+}
+.mobile-lang-btn.active { color: var(--text); border-color: var(--border-2); }
+.mobile-lang-btn:hover { color: var(--text); border-color: var(--border-2); }
 body.menu-locked { overflow: hidden; }
 
 .scroll-progress {
@@ -301,16 +321,6 @@ body.menu-locked { overflow: hidden; }
   background: rgba(184, 168, 138, 0.06);
 }
 
-/* Vertical decorative lines */
-.vline {
-  position: absolute;
-  top: 0; bottom: 0;
-  width: 1px;
-  background: linear-gradient(to bottom, transparent 0%, var(--border) 20%, var(--border) 80%, transparent 100%);
-  pointer-events: none;
-}
-.vline-1 { right: 33.333%; }
-.vline-2 { right: 56px; }
 
 /* ── SECTIONS ────────────────────────────────── */
 section { position: relative; }
@@ -701,6 +711,7 @@ section { position: relative; }
   top: calc(100% + 16px);
   right: 0;
   min-width: 160px;
+  z-index: 10;
   background: var(--surface);
   border: 1px solid var(--border);
   opacity: 0;
@@ -977,7 +988,6 @@ html.cc-locked, body.cc-locked { overflow: hidden !important; overscroll-behavio
   .nav-links { display: none; }
   .nav-burger { display: flex; }
   .nav-cta { display: none; }
-  .lang-switcher { display: none; }
   .nav-right { gap: 14px; min-width: 0; }
   .nav-clock { display: none; }
   .vline { display: none; }

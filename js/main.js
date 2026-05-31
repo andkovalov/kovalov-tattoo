@@ -114,7 +114,8 @@
   var langLabel    = document.getElementById('langLabel');
   var LANGS = {
     ru: { code: 'RU', file: 'index.html' },
-    en: { code: 'EN', file: 'index-en.html' }
+    en: { code: 'EN', file: 'index-en.html' },
+    cs: { code: 'CS', file: 'index-cs.html' }
   };
   var curLang = (document.documentElement.lang || 'ru').slice(0, 2).toLowerCase();
   if (!LANGS[curLang]) curLang = 'ru';
@@ -268,6 +269,15 @@
         policy: 'cookie policy',
         policyFile: 'privacy.html',
         settings: 'Cookie settings'
+      },
+      CS: {
+        title: 'Cookies',
+        text: 'Používáme soubory cookie pro správný chod webu (nezbytné), měření návštěvnosti (analytika) a zobrazení relevantního obsahu (marketing). Nezbytné cookies jsou vždy aktivní. Kliknutím na „Přijmout vše" souhlasíte s analytickými a marketingovými cookies; „Odmítnout" ponechá pouze nezbytné. Více v {policy}.',
+        accept: 'Přijmout vše',
+        reject: 'Odmítnout',
+        policy: 'zásadách cookies',
+        policyFile: 'privacy.html',
+        settings: 'Nastavení cookies'
       }
     };
 
