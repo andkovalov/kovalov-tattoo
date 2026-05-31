@@ -5,6 +5,18 @@
     ]
   },
   "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.tool_input.file_path // empty' | { read -r f; bash '/Users/andrey/Documents/Claude Code/kovalov-tattoo/scripts/ensure-gtm.sh' \"$f\"; } 2>/dev/null || true",
+            "statusMessage": "Checking GTM…"
+          }
+        ]
+      }
+    ],
     "Stop": [
       {
         "hooks": [
