@@ -4,8 +4,8 @@
 
   <url>
     <loc>https://kovalov.tattoo/</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://kovalov.tattoo/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://kovalov.tattoo/en/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://kovalov.tattoo/ru/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kovalov.tattoo/"/>
     <xhtml:link rel="alternate" hreflang="cs" href="https://kovalov.tattoo/cs/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://kovalov.tattoo/"/>
     <lastmod>2026-05-31</lastmod>
@@ -14,9 +14,9 @@
   </url>
 
   <url>
-    <loc>https://kovalov.tattoo/en/</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://kovalov.tattoo/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://kovalov.tattoo/en/"/>
+    <loc>https://kovalov.tattoo/ru/</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://kovalov.tattoo/ru/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kovalov.tattoo/"/>
     <xhtml:link rel="alternate" hreflang="cs" href="https://kovalov.tattoo/cs/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://kovalov.tattoo/"/>
     <lastmod>2026-05-31</lastmod>
@@ -26,8 +26,8 @@
 
   <url>
     <loc>https://kovalov.tattoo/cs/</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://kovalov.tattoo/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://kovalov.tattoo/en/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://kovalov.tattoo/ru/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kovalov.tattoo/"/>
     <xhtml:link rel="alternate" hreflang="cs" href="https://kovalov.tattoo/cs/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://kovalov.tattoo/"/>
     <lastmod>2026-05-31</lastmod>

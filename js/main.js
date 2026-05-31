@@ -113,8 +113,8 @@
   var langBtn      = document.getElementById('langBtn');
   var langLabel    = document.getElementById('langLabel');
   var LANGS = {
-    ru: { code: 'RU', file: '/' },
-    en: { code: 'EN', file: '/en/' },
+    ru: { code: 'RU', file: '/ru/' },
+    en: { code: 'EN', file: '/' },
     cs: { code: 'CS', file: '/cs/' }
   };
   var curLang = (document.documentElement.lang || 'ru').slice(0, 2).toLowerCase();

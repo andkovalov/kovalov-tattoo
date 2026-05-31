@@ -1,6 +1,8 @@
 {
   "redirects": [
-    { "source": "/index-en.html", "destination": "/en/", "permanent": true },
-    { "source": "/index-cs.html", "destination": "/cs/", "permanent": true }
+    { "source": "/index-en.html", "destination": "/",    "permanent": true },
+    { "source": "/index-cs.html", "destination": "/cs/", "permanent": true },
+    { "source": "/en",            "destination": "/",    "permanent": true },
+    { "source": "/en/",           "destination": "/",    "permanent": true }
   ]
 }
