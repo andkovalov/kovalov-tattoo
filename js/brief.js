@@ -169,13 +169,38 @@
     });
   })();
 
-  /* ── Step 4: contacts ─────────────────────────────────── */
+  /* ── Step 4: contacts + QR generation ────────────────── */
+  var qrTimer = null;
+
+  function updateQrCodes() {
+    clearTimeout(qrTimer);
+    qrTimer = setTimeout(function () {
+      answers.name    = inputName    ? inputName.value.trim()    : '';
+      answers.contact = inputContact ? inputContact.value.trim() : '';
+      var msg    = buildMessage();
+      var QR_API = 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=';
+      var tgUrl  = 'https://t.me/' + TG_USERNAME + '?text=' + encodeURIComponent(msg);
+      var waUrl  = 'https://wa.me/' + WA_PHONE   + '?text=' + encodeURIComponent(msg);
+      var imgTg  = document.getElementById('qrImgTg');
+      var imgWa  = document.getElementById('qrImgWa');
+      var blkTg  = document.getElementById('qrBlockTg');
+      var blkWa  = document.getElementById('qrBlockWa');
+      var hint   = document.getElementById('qrHint');
+      if (imgTg) imgTg.src = QR_API + encodeURIComponent(tgUrl);
+      if (imgWa) imgWa.src = QR_API + encodeURIComponent(waUrl);
+      if (blkTg) { blkTg.classList.add('visible'); blkTg.removeAttribute('aria-hidden'); }
+      if (blkWa) { blkWa.classList.add('visible'); blkWa.removeAttribute('aria-hidden'); }
+      if (hint)  { hint.classList.add('visible');  hint.removeAttribute('aria-hidden'); }
+    }, 500);
+  }
+
   function checkContacts() {
     var ok = inputName && inputContact &&
              inputName.value.trim().length > 0 &&
              inputContact.value.trim().length > 0;
     if (btnTg) btnTg.disabled = !ok;
     if (btnWa) btnWa.disabled = !ok;
+    if (ok) updateQrCodes();
   }
   if (inputName)    inputName.addEventListener('input', checkContacts);
   if (inputContact) inputContact.addEventListener('input', checkContacts);

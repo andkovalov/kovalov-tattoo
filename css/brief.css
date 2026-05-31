@@ -240,6 +240,38 @@ html, body {
 .form-input:focus { border-color: var(--accent); }
 
 .submit-row { display: flex; flex-direction: column; gap: 10px; margin-top: auto; padding-top: 16px; }
+
+/* Each messenger button + its QR code side by side */
+.messenger-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.messenger-row .btn-messenger {
+  flex: 1;
+  min-width: 0;
+}
+.qr-block {
+  flex-shrink: 0;
+  display: none; /* shown only on desktop via media query */
+}
+.qr-img {
+  display: block;
+  width: 150px;
+  height: 150px;
+  background: #fff; /* QR codes require white background */
+}
+.qr-hint {
+  display: none; /* shown only on desktop via media query */
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-2);
+  font-weight: 400;
+  text-align: right;
+  padding-right: 2px;
+}
+
 .btn-messenger {
   display: flex;
   align-items: center;
@@ -265,7 +297,9 @@ html, body {
 .btn-wa:not(:disabled):hover { border-color: var(--text-2); color: var(--text); }
 
 #screen-success {
-  position: fixed; inset: 0; background: var(--bg);
+  position: fixed; inset: 0;
+  background: #0b0a08; /* solid — prevents quiz content showing through */
+  z-index: 999;
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
   text-align: center; padding: 48px 32px;
@@ -285,4 +319,12 @@ html, body {
 @media (max-width: 600px) {
   .step { justify-content: flex-start; padding-bottom: 84px; }
   .btn-next { position: absolute; left: 0; right: 0; bottom: 0; margin-top: 0; }
+}
+
+@media (min-width: 768px) {
+  /* Expand quiz container to fit button + QR side by side */
+  .quiz-wrap { max-width: 700px; }
+  /* Show QR codes and hint once JS marks them visible */
+  .qr-block.visible { display: flex; align-items: center; justify-content: center; }
+  .qr-hint.visible  { display: block; }
 }
