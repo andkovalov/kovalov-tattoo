@@ -1,0 +1,15 @@
+# Handoff source (not needed in repo)
+handoff/
+handoff2/
+Tattoo portfolio-handoff.zip
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Claude Code local settings
+.claude/settings.local.json
+
+# Node / serve
+node_modules/
