@@ -241,35 +241,50 @@ html, body {
 
 .submit-row { display: flex; flex-direction: column; gap: 10px; margin-top: auto; padding-top: 16px; }
 
-/* Each messenger button + its QR code side by side */
-.messenger-row {
-  display: flex;
-  align-items: center;
-  gap: 16px;
+/* Desktop QR cards */
+.qr-cards {
+  display: none;
+  flex-direction: row;
+  gap: 12px;
 }
-.messenger-row .btn-messenger {
+.qr-card {
   flex: 1;
-  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 16px 18px;
+  background: none;
+  border: 1px solid var(--border-2);
+  color: var(--text);
+  font-family: var(--font);
+  cursor: pointer;
+  transition: border-color 0.2s;
+  -webkit-tap-highlight-color: transparent;
 }
-.qr-block {
-  flex-shrink: 0;
-  display: none; /* shown only on desktop via media query */
-}
+.qr-card:not([disabled]):hover { border-color: var(--text-2); }
+.qr-card:not([disabled]):active { border-color: var(--text); }
+.qr-card[disabled] { opacity: 0.25; cursor: not-allowed; }
 .qr-img {
   display: block;
-  width: 150px;
-  height: 150px;
-  background: #fff; /* QR codes require white background */
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: #fff;
 }
-.qr-hint {
-  display: none; /* shown only on desktop via media query */
+.qr-card-name {
   font-size: 11px;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--text-2);
   font-weight: 400;
-  text-align: right;
-  padding-right: 2px;
+}
+.qr-caption {
+  display: none;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--text-2);
+  font-weight: 300;
+  text-align: center;
 }
 
 .btn-messenger {
@@ -322,9 +337,7 @@ html, body {
 }
 
 @media (min-width: 768px) {
-  /* Expand quiz container to fit button + QR side by side */
-  .quiz-wrap { max-width: 700px; }
-  /* Show QR codes and hint once JS marks them visible */
-  .qr-block.visible { display: flex; align-items: center; justify-content: center; }
-  .qr-hint.visible  { display: block; }
+  .btn-messenger { display: none; }
+  .qr-cards { display: flex; }
+  .qr-caption { display: block; }
 }
