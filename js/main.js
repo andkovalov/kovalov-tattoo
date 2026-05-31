@@ -113,9 +113,9 @@
   var langBtn      = document.getElementById('langBtn');
   var langLabel    = document.getElementById('langLabel');
   var LANGS = {
-    ru: { code: 'RU', file: 'index.html' },
-    en: { code: 'EN', file: 'index-en.html' },
-    cs: { code: 'CS', file: 'index-cs.html' }
+    ru: { code: 'RU', file: '/' },
+    en: { code: 'EN', file: '/en/' },
+    cs: { code: 'CS', file: '/cs/' }
   };
   var curLang = (document.documentElement.lang || 'ru').slice(0, 2).toLowerCase();
   if (!LANGS[curLang]) curLang = 'ru';

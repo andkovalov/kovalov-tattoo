@@ -17,7 +17,7 @@
     ? ['Step 1', 'Step 2', 'Step 3', 'Step 4']
     : ['Шаг 1',  'Шаг 2',  'Шаг 3',  'Шаг 4'];
 
-  var HOME = isEn ? 'index-en.html' : 'index.html';
+  var HOME = isEn ? '/en/' : '/';
 
   var progressFill = document.getElementById('progressFill');
   var stepLabel    = document.getElementById('stepLabel');

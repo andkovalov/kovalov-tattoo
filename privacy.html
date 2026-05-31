@@ -123,8 +123,28 @@
 
   <footer>
     <div class="footer-brand">kovalov.tattoo</div>
-    <div class="footer-copy">© 2025 — Все права защищены</div>
+    <div class="footer-right">
+      <button class="footer-cookies" id="ccSettingsLink" type="button">Настройки cookie</button>
+      <div class="footer-copy">© 2026 — Все права защищены</div>
+    </div>
   </footer>
 
+  <div class="cc" id="cookieConsent" hidden>
+    <div class="cc-backdrop"></div>
+    <div class="cc-panel" role="dialog" aria-modal="true" aria-labelledby="ccTitle" aria-describedby="ccText">
+      <div class="cc-inner">
+        <div class="cc-text-wrap">
+          <div class="cc-title" id="ccTitle"></div>
+          <p class="cc-text" id="ccText"></p>
+        </div>
+        <div class="cc-actions">
+          <button class="cc-btn cc-reject" id="ccReject" type="button"></button>
+          <button class="cc-btn cc-accept" id="ccAccept" type="button"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
 </body>
 </html>
