@@ -2,51 +2,120 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
+  <!-- ============================================ -->
+  <!-- 1. МУЛЬТИЯЗЫЧНЫЕ ГЛАВНЫЕ СТРАНИЦЫ            -->
+  <!-- ============================================ -->
+
+  <!-- EN — дефолтная версия сайта -->
   <url>
     <loc>https://kovalov.tattoo/</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://kovalov.tattoo/ru/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://kovalov.tattoo/"/>
-    <xhtml:link rel="alternate" hreflang="cs" href="https://kovalov.tattoo/cs/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://kovalov.tattoo/"/>
-    <lastmod>2026-05-31</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
+    <lastmod>2026-06-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kovalov.tattoo/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://kovalov.tattoo/ru/" />
+    <xhtml:link rel="alternate" hreflang="cs" href="https://kovalov.tattoo/cs/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kovalov.tattoo/" />
   </url>
 
+  <!-- RU -->
   <url>
     <loc>https://kovalov.tattoo/ru/</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://kovalov.tattoo/ru/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://kovalov.tattoo/"/>
-    <xhtml:link rel="alternate" hreflang="cs" href="https://kovalov.tattoo/cs/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://kovalov.tattoo/"/>
-    <lastmod>2026-05-31</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <lastmod>2026-06-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kovalov.tattoo/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://kovalov.tattoo/ru/" />
+    <xhtml:link rel="alternate" hreflang="cs" href="https://kovalov.tattoo/cs/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kovalov.tattoo/" />
   </url>
 
+  <!-- CS -->
   <url>
     <loc>https://kovalov.tattoo/cs/</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://kovalov.tattoo/ru/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://kovalov.tattoo/"/>
-    <xhtml:link rel="alternate" hreflang="cs" href="https://kovalov.tattoo/cs/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://kovalov.tattoo/"/>
-    <lastmod>2026-05-31</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <lastmod>2026-06-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kovalov.tattoo/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://kovalov.tattoo/ru/" />
+    <xhtml:link rel="alternate" hreflang="cs" href="https://kovalov.tattoo/cs/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kovalov.tattoo/" />
   </url>
+
+  <!-- ============================================ -->
+  <!-- 2. БЛОГ — ЛИСТИНГОВЫЕ СТРАНИЦЫ               -->
+  <!-- ============================================ -->
+
+  <!-- CS — дефолтный листинг -->
+  <url>
+    <loc>https://kovalov.tattoo/blog</loc>
+    <lastmod>2026-06-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://kovalov.tattoo/blog" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://kovalov.tattoo/blog-ru" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://kovalov.tattoo/blog-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kovalov.tattoo/blog" />
+  </url>
+
+  <!-- RU -->
+  <url>
+    <loc>https://kovalov.tattoo/blog-ru</loc>
+    <lastmod>2026-06-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://kovalov.tattoo/blog" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://kovalov.tattoo/blog-ru" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://kovalov.tattoo/blog-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kovalov.tattoo/blog" />
+  </url>
+
+  <!-- EN -->
+  <url>
+    <loc>https://kovalov.tattoo/blog-en</loc>
+    <lastmod>2026-06-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://kovalov.tattoo/blog" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://kovalov.tattoo/blog-ru" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://kovalov.tattoo/blog-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kovalov.tattoo/blog" />
+  </url>
+
+  <!-- ============================================ -->
+  <!-- 3. БЛОГ — СТАТЬЯ: КАК НАЙТИ ТАТ-МАСТЕРА     -->
+  <!-- ============================================ -->
+
+  <!-- CS -->
+  <url>
+    <loc>https://kovalov.tattoo/blog-jak-najit-tetovace-v-praze</loc>
+    <lastmod>2026-06-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://kovalov.tattoo/blog-jak-najit-tetovace-v-praze" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://kovalov.tattoo/blog-tatu-master-praga" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://kovalov.tattoo/blog-how-to-find-tattoo-artist-prague" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kovalov.tattoo/blog-jak-najit-tetovace-v-praze" />
+  </url>
+
+  <!-- RU -->
+  <url>
+    <loc>https://kovalov.tattoo/blog-tatu-master-praga</loc>
+    <lastmod>2026-06-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://kovalov.tattoo/blog-jak-najit-tetovace-v-praze" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://kovalov.tattoo/blog-tatu-master-praga" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://kovalov.tattoo/blog-how-to-find-tattoo-artist-prague" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kovalov.tattoo/blog-jak-najit-tetovace-v-praze" />
+  </url>
+
+  <!-- EN -->
+  <url>
+    <loc>https://kovalov.tattoo/blog-how-to-find-tattoo-artist-prague</loc>
+    <lastmod>2026-06-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://kovalov.tattoo/blog-jak-najit-tetovace-v-praze" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://kovalov.tattoo/blog-tatu-master-praga" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://kovalov.tattoo/blog-how-to-find-tattoo-artist-prague" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kovalov.tattoo/blog-jak-najit-tetovace-v-praze" />
+  </url>
+
+  <!-- ============================================ -->
+  <!-- 4. СЛУЖЕБНЫЕ СТРАНИЦЫ                        -->
+  <!-- ============================================ -->
 
   <url>
     <loc>https://kovalov.tattoo/care.html</loc>
     <lastmod>2026-05-31</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
   </url>
 
   <url>
     <loc>https://kovalov.tattoo/privacy.html</loc>
     <lastmod>2026-05-31</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
   </url>
 
 </urlset>
