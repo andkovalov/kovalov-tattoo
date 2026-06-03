@@ -1,4 +1,5 @@
 {
+  "cleanUrls": true,
   "redirects": [
     { "source": "/index-en.html", "destination": "/",    "permanent": true },
     { "source": "/index-cs.html", "destination": "/cs/", "permanent": true },
