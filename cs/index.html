@@ -37,7 +37,8 @@
   <meta name="twitter:description" content="Autorské tetování na zakázku — fine line a black &amp; grey. Praha.">
   <meta name="twitter:image" content="https://kovalov.tattoo/images/og-image.jpg">
 
-  <style>body{background:#0b0a08;color:#ece7dc}</style>
+  <style>html,body{background:#0b0a08;margin:0;padding:0}body{color:#ece7dc;opacity:0;transition:opacity 0.2s ease}body.css-loaded{opacity:1}</style>
+  <noscript><style>body{opacity:1}</style></noscript>
 
   <link rel="preload" href="/fonts/MazzardH-ExtraLight.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="preload" href="/fonts/MazzardH-Light.ttf" as="font" type="font/ttf" crossorigin>
@@ -46,7 +47,7 @@
 
   <link rel="stylesheet" href="/css/tokens.css" media="print" onload="this.media='all'">
   <noscript><link rel="stylesheet" href="/css/tokens.css"></noscript>
-  <link rel="stylesheet" href="/css/main.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="/css/main.css" media="print" onload="this.media='all';document.body.classList.add('css-loaded')">
   <noscript><link rel="stylesheet" href="/css/main.css"></noscript>
 </head>
 <body>
