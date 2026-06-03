@@ -13,3 +13,4 @@ Tattoo portfolio-handoff.zip
 
 # Node / serve
 node_modules/
+.vercel
