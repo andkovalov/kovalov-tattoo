@@ -1,6 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /brief.html
-Disallow: /brief-en.html
 
 Sitemap: https://kovalov.tattoo/sitemap.xml

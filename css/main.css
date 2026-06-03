@@ -540,8 +540,40 @@ section { position: relative; }
   margin-right: 16px;
   background: linear-gradient(180deg, #f6f6f6 0%, #ececec 100%);
   overflow: hidden;
+  position: relative;
 }
 .flash-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.flash-card-id {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.9);
+  text-shadow: 0 1px 4px rgba(0,0,0,0.7);
+  z-index: 1;
+  pointer-events: none;
+}
+.flash-book {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #fff;
+  background: rgba(11,10,8,0.88);
+  padding: 11px 8px;
+  text-decoration: none;
+  transform: translateY(100%);
+  transition: transform 0.22s ease;
+  z-index: 1;
+}
+.flash-card:hover .flash-book { transform: translateY(0); }
+@media (hover: none) { .flash-book { transform: translateY(0); } }
 .see-more-row { display: flex; justify-content: center; padding-top: 8px; }
 .see-more {
   font-size: 12px;
