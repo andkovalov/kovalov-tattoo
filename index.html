@@ -36,8 +36,17 @@
   <meta name="twitter:description" content="Custom tattoos — fine line and black &amp; grey. Prague.">
   <meta name="twitter:image" content="https://kovalov.tattoo/images/og-image.jpg">
 
-  <link rel="stylesheet" href="/css/tokens.css">
-  <link rel="stylesheet" href="/css/main.css">
+  <style>body{background:#0b0a08;color:#ece7dc}</style>
+
+  <link rel="preload" href="/fonts/MazzardH-ExtraLight.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="/fonts/MazzardH-Light.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="/fonts/MazzardH-Regular.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="/fonts/MazzardH-Medium.ttf" as="font" type="font/ttf" crossorigin>
+
+  <link rel="stylesheet" href="/css/tokens.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="/css/tokens.css"></noscript>
+  <link rel="stylesheet" href="/css/main.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="/css/main.css"></noscript>
 
   <script type="application/ld+json">
   {
