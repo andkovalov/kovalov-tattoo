@@ -77,7 +77,7 @@
             <path d="M1 1L5 5L9 1" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </button>
-        <div class="lang-dropdown" id="langDropdown" role="listbox">
+        <div class="lang-dropdown" id="langDropdown" role="listbox" aria-label="Выбрать язык">
           <button class="lang-option active" data-code="RU" role="option">
             <span class="lang-abbr">RU</span>
             <span class="lang-name">Русский</span>
@@ -130,7 +130,7 @@
       <picture>
         <source type="image/webp" media="(max-width: 768px)" srcset="/images/hero-mobile.webp">
         <source type="image/webp" srcset="/images/hero.webp">
-        <img src="/images/hero.jpg" alt="Andrey Kovalov — тату-мастер, Прага" loading="eager" fetchpriority="high">
+        <img src="/images/hero.jpg" alt="Andrey Kovalov — тату-мастер, Прага" loading="eager" fetchpriority="high" width="1901" height="1435">
       </picture>
     </div>
     <div class="hero-main">
@@ -223,25 +223,25 @@
 
       <div class="portfolio-grid" id="portfolio-grid">
         <div class="portfolio-cell" data-style="blackgrey">
-          <img class="portfolio-img" src="/images/work1.webp" alt="Fallen angel fine line and black and grey tattoo in Prague by Andrey Kovalov" loading="lazy">
+          <img class="portfolio-img" src="/images/work1.webp" alt="Fallen angel fine line and black and grey tattoo in Prague by Andrey Kovalov" loading="lazy" width="1201" height="1801">
         </div>
         <div class="portfolio-cell" data-style="blackgrey">
-          <img class="portfolio-img" src="/images/work2.webp" alt="Archangel Michael fine line and black and grey tattoo in Prague by Andrey Kovalov" loading="lazy">
+          <img class="portfolio-img" src="/images/work2.webp" alt="Archangel Michael fine line and black and grey tattoo in Prague by Andrey Kovalov" loading="lazy" width="1201" height="1801">
         </div>
         <div class="portfolio-cell" data-style="fineline">
-          <img class="portfolio-img" src="/images/work3.webp" alt="Swallows and geometry fineline tattoo in Prague by Andrey Kovalov" loading="lazy">
+          <img class="portfolio-img" src="/images/work3.webp" alt="Swallows and geometry fineline tattoo in Prague by Andrey Kovalov" loading="lazy" width="1201" height="1601">
         </div>
         <div class="portfolio-cell" data-style="microrealism">
-          <img class="portfolio-img" src="/images/work4.webp" alt="Ballerina with katana microrealism tattoo in Prague by Andrey Kovalov" loading="lazy">
+          <img class="portfolio-img" src="/images/work4.webp" alt="Ballerina with katana microrealism tattoo in Prague by Andrey Kovalov" loading="lazy" width="1201" height="1601">
         </div>
         <div class="portfolio-cell" data-style="symbolic">
-          <img class="portfolio-img" src="/images/work5.webp" alt="Embrace and serpent symbolic tattoo in Prague by Andrey Kovalov" loading="lazy">
+          <img class="portfolio-img" src="/images/work5.webp" alt="Embrace and serpent symbolic tattoo in Prague by Andrey Kovalov" loading="lazy" width="1201" height="1601">
         </div>
         <div class="portfolio-cell" data-style="grafika">
-          <img class="portfolio-img" src="/images/work6.webp" alt="Marionette and hand graphic tattoo in Prague by Andrey Kovalov" loading="lazy">
+          <img class="portfolio-img" src="/images/work6.webp" alt="Marionette and hand graphic tattoo in Prague by Andrey Kovalov" loading="lazy" width="1201" height="2134">
         </div>
         <div class="portfolio-cell" data-style="blackgrey">
-          <img class="portfolio-img" src="/images/work7.webp" alt="Native in geometry black and grey tattoo in Prague by Andrey Kovalov" loading="lazy">
+          <img class="portfolio-img" src="/images/work7.webp" alt="Native in geometry black and grey tattoo in Prague by Andrey Kovalov" loading="lazy" width="1201" height="2134">
         </div>
       </div>
 
@@ -378,7 +378,7 @@
         </div>
       </div>
 
-      <p class="pricing-footer-note" style="color:var(--text);opacity:0.44">* Для брони нужен аванс. Цены ориентировочные — точный расчёт после консультации.</p>
+      <p class="pricing-footer-note">* Для брони нужен аванс. Цены ориентировочные — точный расчёт после консультации.</p>
     </div>
   </section>
 
@@ -562,6 +562,6 @@
     </div>
   </div>
 
-  <script src="/js/main.js"></script>
+  <script src="/js/main.js" defer></script>
 </body>
 </html>
