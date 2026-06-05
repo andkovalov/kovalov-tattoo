@@ -11,13 +11,17 @@
   var stepKeys    = [null, 'idea', 'location', 'size'];
 
   var lang = document.documentElement.lang || 'ru';
-  var isEn = lang.slice(0, 2).toLowerCase() === 'en';
+  var langCode = lang.slice(0, 2).toLowerCase();
+  var isEn = langCode === 'en';
+  var isCs = langCode === 'cs';
 
   var stepTitles = isEn
     ? ['Step 1', 'Step 2', 'Step 3', 'Step 4']
-    : ['Шаг 1',  'Шаг 2',  'Шаг 3',  'Шаг 4'];
+    : isCs
+      ? ['Krok 1', 'Krok 2', 'Krok 3', 'Krok 4']
+      : ['Шаг 1',  'Шаг 2',  'Шаг 3',  'Шаг 4'];
 
-  var HOME = isEn ? '/' : '/ru/';
+  var HOME = isEn ? '/' : isCs ? '/cs/' : '/ru/';
 
   var progressFill = document.getElementById('progressFill');
   var stepLabel    = document.getElementById('stepLabel');
@@ -222,6 +226,18 @@
         '',
         'My name is ' + answers.name + '.',
         'Contact: ' + answers.contact
+      ].join('\n');
+    }
+    if (isCs) {
+      return [
+        'Ahoj! Vyplnil(a) jsem brief na kovalov.tattoo.',
+        '',
+        'Nápad: ' + answers.idea,
+        'Místo: ' + answers.location,
+        'Velikost: ' + answers.size,
+        '',
+        'Jmenuji se ' + answers.name + '.',
+        'Kontakt: ' + answers.contact
       ].join('\n');
     }
     return [
