@@ -573,6 +573,8 @@ section { position: relative; }
 }
 .flash-card:hover .flash-book { transform: translateY(0); }
 @media (hover: none) { .flash-book { transform: translateY(0); } }
+.flash-card--done img { filter: brightness(0.78) grayscale(0.25); }
+.flash-book--done { cursor: default; background: rgba(11,10,8,0.72); letter-spacing: 0.16em; }
 .see-more-row { display: flex; justify-content: center; padding-top: 8px; }
 .see-more {
   font-size: 12px;
