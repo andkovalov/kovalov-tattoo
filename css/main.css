@@ -1112,3 +1112,22 @@ html.cc-locked, body.cc-locked { overflow: hidden !important; overscroll-behavio
   .hero-main { max-width: 880px; }
   .hero-h1 { white-space: nowrap; }
 }
+
+/* ── Flash: grid on desktop (all cards visible) ── */
+@media (min-width: 721px) {
+  #flash { overflow: visible; }
+  .marquee {
+    overflow: visible;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .marquee-track {
+    animation: none;
+    width: auto;
+    flex-wrap: wrap;
+    padding: 0 56px;
+    gap: 16px;
+  }
+  .marquee-track .flash-card { margin-right: 0; }
+  .marquee-track [aria-hidden="true"] { display: none; }
+}
