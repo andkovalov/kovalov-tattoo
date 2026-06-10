@@ -234,18 +234,22 @@
   /* ── Flash marquee (seamless loop + prev/next) ───────── */
   (function () {
     var track   = document.getElementById('flashTrack');
-    var inner   = document.getElementById('flashInner');
     var btnPrev = document.getElementById('flashPrev');
     var btnNext = document.getElementById('flashNext');
-    if (!track || !inner) return;
+    if (!track) return;
+
+    /* Mobile: native scroll-snap, no JS takeover */
+    if (window.matchMedia('(max-width: 720px)').matches) return;
 
     var base   = Array.prototype.slice.call(track.children);
     var CARD_W = 184 + 16;                        // 200 px per card slot
-    var unit   = base.length * CARD_W;            // width of one full set
+    var unit   = base.length * CARD_W;            // one full set width
+    var SPEED  = unit / 75;                       // px/s — same pace as 75-s CSS animation
+    var SHIFT  = CARD_W;                          // 1 card per button click
 
-    /* ── Append copies for forward looping (must stay even) */
-    var copies = Math.max(2, Math.ceil((window.innerWidth * 2) / unit));
-    if (copies % 2) copies++;
+    /* Append enough copies for seamless looping in both directions */
+    var copies = Math.max(4, Math.ceil(window.innerWidth * 3 / unit));
+    if (copies % 2 !== 0) copies++;
     for (var i = 1; i < copies; i++) {
       base.forEach(function (card) {
         var clone = card.cloneNode(true);
@@ -254,32 +258,42 @@
       });
     }
 
-    /* ── Prepend 2 copies so the ← button has content to reveal */
-    var BEHIND = 2;
-    for (var b = 0; b < BEHIND; b++) {
-      for (var k = base.length - 1; k >= 0; k--) {
-        var clone = base[k].cloneNode(true);
-        clone.setAttribute('aria-hidden', 'true');
-        track.insertBefore(clone, track.firstChild);
+    /* Hand off from CSS animation to JS rAF */
+    track.style.animation = 'none';
+
+    var pos    = 0;   // rendered translateX
+    var target = 0;   // desired translateX (includes user-initiated shifts)
+    var last   = null;
+
+    function tick(now) {
+      if (last === null) { last = now; requestAnimationFrame(tick); return; }
+      var dt = Math.min((now - last) / 1000, 0.05);
+      last = now;
+
+      /* Auto-scroll — advance both pos and target together */
+      pos    -= SPEED * dt;
+      target -= SPEED * dt;
+
+      /* Ease pos toward target (smooth button animation) */
+      var diff = target - pos;
+      if (Math.abs(diff) > 0.2) {
+        pos += diff * (1 - Math.exp(-10 * dt));
+      } else {
+        pos = target;
+        /* Normalise when settled — keeps values small, enables true infinite loop */
+        if (pos < -unit) { pos += unit; target += unit; }
+        if (pos >     0) { pos -= unit; target -= unit; }
       }
+
+      track.style.transform = 'translateX(' + pos + 'px)';
+      requestAnimationFrame(tick);
     }
 
-    /* ── Shift animation start past the prepended copies */
-    track.style.setProperty('--flash-start', (-BEHIND * unit) + 'px');
+    requestAnimationFrame(tick);
 
-    /* ── Prev / Next button clicks shift the inner wrapper */
-    var SHIFT   = 4 * CARD_W;                     // 4 cards = 800 px
-    var offset  = 0;
-    var MAX_BCK = Math.max(0, (BEHIND * unit) - window.innerWidth);
-
-    function shiftBy(delta) {
-      offset += delta;
-      if (offset > MAX_BCK) offset = MAX_BCK;    // don't reveal empty space on ←
-      inner.style.transform = 'translateX(' + offset + 'px)';
-    }
-
-    if (btnPrev) btnPrev.addEventListener('click', function () { shiftBy(+SHIFT); });
-    if (btnNext) btnNext.addEventListener('click', function () { shiftBy(-SHIFT); });
+    /* Prev (←) goes backward, Next (→) goes forward — infinite in both directions */
+    if (btnPrev) btnPrev.addEventListener('click', function () { target += SHIFT; });
+    if (btnNext) btnNext.addEventListener('click', function () { target -= SHIFT; });
   })();
 
   /* ── Cookie consent (GDPR) ───────────────────────────── */
