@@ -231,12 +231,19 @@
     window.addEventListener('scroll', hide, { passive: true });
   })();
 
-  /* ── Flash marquee (seamless loop) ───────────────────── */
+  /* ── Flash marquee (seamless loop + prev/next) ───────── */
   (function () {
-    var track = document.getElementById('flashTrack');
-    if (!track) return;
-    var base = Array.prototype.slice.call(track.children);
-    var unit = base.length * (184 + 16);
+    var track   = document.getElementById('flashTrack');
+    var inner   = document.getElementById('flashInner');
+    var btnPrev = document.getElementById('flashPrev');
+    var btnNext = document.getElementById('flashNext');
+    if (!track || !inner) return;
+
+    var base   = Array.prototype.slice.call(track.children);
+    var CARD_W = 184 + 16;                        // 200 px per card slot
+    var unit   = base.length * CARD_W;            // width of one full set
+
+    /* ── Append copies for forward looping (must stay even) */
     var copies = Math.max(2, Math.ceil((window.innerWidth * 2) / unit));
     if (copies % 2) copies++;
     for (var i = 1; i < copies; i++) {
@@ -246,6 +253,33 @@
         track.appendChild(clone);
       });
     }
+
+    /* ── Prepend 2 copies so the ← button has content to reveal */
+    var BEHIND = 2;
+    for (var b = 0; b < BEHIND; b++) {
+      for (var k = base.length - 1; k >= 0; k--) {
+        var clone = base[k].cloneNode(true);
+        clone.setAttribute('aria-hidden', 'true');
+        track.insertBefore(clone, track.firstChild);
+      }
+    }
+
+    /* ── Shift animation start past the prepended copies */
+    track.style.setProperty('--flash-start', (-BEHIND * unit) + 'px');
+
+    /* ── Prev / Next button clicks shift the inner wrapper */
+    var SHIFT   = 4 * CARD_W;                     // 4 cards = 800 px
+    var offset  = 0;
+    var MAX_BCK = Math.max(0, (BEHIND * unit) - window.innerWidth);
+
+    function shiftBy(delta) {
+      offset += delta;
+      if (offset > MAX_BCK) offset = MAX_BCK;    // don't reveal empty space on ←
+      inner.style.transform = 'translateX(' + offset + 'px)';
+    }
+
+    if (btnPrev) btnPrev.addEventListener('click', function () { shiftBy(+SHIFT); });
+    if (btnNext) btnNext.addEventListener('click', function () { shiftBy(-SHIFT); });
   })();
 
   /* ── Cookie consent (GDPR) ───────────────────────────── */

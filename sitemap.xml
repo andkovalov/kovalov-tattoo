@@ -109,6 +109,13 @@
   <!-- ============================================ -->
 
   <url>
+    <loc>https://kovalov.tattoo/flash</loc>
+    <lastmod>2026-06-10</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kovalov.tattoo/flash" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kovalov.tattoo/flash" />
+  </url>
+
+  <url>
     <loc>https://kovalov.tattoo/care</loc>
     <lastmod>2026-05-31</lastmod>
   </url>

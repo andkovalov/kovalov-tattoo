@@ -524,14 +524,17 @@ section { position: relative; }
   -webkit-mask-image: linear-gradient(to right, transparent 0, #000 3%, #000 97%, transparent 100%);
   mask-image: linear-gradient(to right, transparent 0, #000 3%, #000 97%, transparent 100%);
 }
+.marquee-inner {
+  transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+}
 .marquee-track {
   display: flex;
   width: max-content;
   animation: flashScroll 75s linear infinite;
 }
 @keyframes flashScroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+  from { transform: translateX(var(--flash-start, 0px)); }
+  to   { transform: translateX(calc(var(--flash-start, 0px) - 50%)); }
 }
 .flash-card {
   flex: 0 0 auto;
@@ -575,7 +578,27 @@ section { position: relative; }
 @media (hover: none) { .flash-book { transform: translateY(0); } }
 .flash-card--done img { filter: brightness(0.78) grayscale(0.25); }
 .flash-book--done { cursor: default; background: rgba(11,10,8,0.72); letter-spacing: 0.16em; }
-.see-more-row { display: flex; justify-content: center; padding-top: 8px; }
+/* Flash prev/next nav */
+.flash-nav { display: none; gap: 8px; margin-top: 28px; }
+@media (min-width: 721px) { .flash-nav { display: flex; } }
+.flash-nav-btn {
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-2);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s ease, color 0.2s ease;
+  padding: 0;
+  flex-shrink: 0;
+}
+.flash-nav-btn:hover { border-color: var(--text-2); color: var(--text); }
+.flash-nav-btn:active { background: rgba(255,255,255,0.04); }
+
+.see-more-row { display: flex; justify-content: center; padding-top: 32px; }
 .see-more {
   font-size: 12px;
   letter-spacing: 0.16em;
@@ -1111,23 +1134,4 @@ html.cc-locked, body.cc-locked { overflow: hidden !important; overscroll-behavio
 @media (min-width: 1100px) {
   .hero-main { max-width: 880px; }
   .hero-h1 { white-space: nowrap; }
-}
-
-/* ── Flash: grid on desktop (all cards visible) ── */
-@media (min-width: 721px) {
-  #flash { overflow: visible; }
-  .marquee {
-    overflow: visible;
-    -webkit-mask-image: none;
-    mask-image: none;
-  }
-  .marquee-track {
-    animation: none;
-    width: auto;
-    flex-wrap: wrap;
-    padding: 0 56px;
-    gap: 16px;
-  }
-  .marquee-track .flash-card { margin-right: 0; }
-  .marquee-track [aria-hidden="true"] { display: none; }
 }
